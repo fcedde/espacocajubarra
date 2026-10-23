@@ -44,7 +44,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg)
 h1,h2,h3,.display{font-family:'Playfair Display','Inter',serif;line-height:1.12;letter-spacing:-.01em}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 max(16px,4vw)}
 .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
 
@@ -111,7 +111,7 @@ body.menu-open{overflow:hidden}
 .hero-inner{max-width:730px}
 .hero h1{font-size:clamp(2.25rem,6vw,4rem);font-weight:800;margin:18px 0;color:var(--ink)}
 .hero p.sub{font-size:clamp(1.05rem,2.2vw,1.25rem);color:var(--muted);max-width:610px;margin-bottom:30px}
-.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:34px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:8px}
 .hero-trust{display:flex;flex-wrap:wrap;gap:22px;align-items:center}
 .trust-item{display:flex;align-items:center;gap:8px;font-size:.92rem;color:var(--muted);font-weight:500}
 .trust-item svg{color:var(--orange)}
@@ -158,18 +158,33 @@ section{position:relative}
 .diff .ico{width:50px;height:50px;border-radius:14px;margin:0 auto;display:grid;place-items:center;background:rgba(245,166,35,.12);border:1px solid var(--line2)}
 .diff .ico svg{width:25px;height:25px;color:var(--orange)}
 
-.promo{display:grid;grid-template-columns:.92fr 1.08fr;gap:40px;align-items:center;background:var(--card);border:1px solid var(--line2);border-radius:24px;overflow:hidden;box-shadow:0 4px 20px rgba(40,25,15,.05)}
-.promo .media{position:relative;min-height:300px;background:var(--bg3);display:grid;place-items:center}
-.promo .media .placeholder{color:var(--muted);text-align:center;padding:20px}
-.promo .body{padding:42px 40px}
-.promo h2{font-size:clamp(1.6rem,3.4vw,2.35rem);font-weight:800;margin:12px 0 14px;color:var(--ink)}
-.promo p{color:var(--muted);font-size:1.05rem;margin-bottom:22px}
+.promo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:0;align-items:stretch;background:var(--card);border:1px solid var(--line2);border-radius:24px;overflow:hidden;box-shadow:0 4px 20px rgba(40,25,15,.05)}
+.promo .media{position:relative;min-height:280px;background:var(--bg3);display:grid;place-items:center;align-self:stretch}
+.promo .media img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.promo .media .placeholder{color:var(--muted);text-align:center;padding:20px;position:relative;z-index:1}
+.promo .body{padding:clamp(28px,4vw,48px) clamp(22px,3.5vw,44px);min-width:0;display:flex;flex-direction:column;justify-content:center;gap:0}
+.promo .body .eyebrow{margin-bottom:4px}
+.promo h2{font-size:clamp(1.45rem,4.5vw,2.35rem);font-weight:800;margin:8px 0 14px;color:var(--ink);word-wrap:break-word;overflow-wrap:anywhere}
+.promo p{color:var(--muted);font-size:1.05rem;margin:0 0 22px;line-height:1.7}
+.promo .body .btn{align-self:flex-start;margin-top:4px}
 
 .gallery{display:grid;grid-template-columns:2fr 1fr;gap:18px}
 .gallery .g{border-radius:18px;overflow:hidden;border:1px solid var(--line);position:relative;min-height:230px;background:var(--bg3);display:grid;place-items:center}
 .gallery .g .placeholder{color:var(--muted);font-size:.95rem;text-align:center;padding:16px}
 .gallery .g .lbl{position:absolute;left:14px;bottom:12px;font-weight:700;background:rgba(255,255,255,.9);padding:6px 13px;border-radius:999px;font-size:.85rem;backdrop-filter:blur(5px);color:var(--ink)}
 .gallery-col{display:grid;gap:18px}
+
+/* Galeria fluxo contínuo */
+.gallery-marquee{overflow:hidden;width:100%;padding:8px 0 4px;mask-image:linear-gradient(90deg,transparent 0%,#000 3%,#000 97%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 3%,#000 97%,transparent 100%)}
+.gallery-track{display:flex;gap:14px;width:max-content;animation:marquee-scroll 45s linear infinite;will-change:transform}
+.gallery-track:hover{animation-play-state:paused}
+@keyframes marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.gallery-item{flex:0 0 auto;width:clamp(280px,72vw,400px);aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:var(--bg3);border:1px solid var(--line);position:relative}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery-item .ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:.85rem;text-align:center;padding:12px;background:var(--bg3);z-index:0}
+.gallery-item img[src]{position:relative;z-index:1}
+@media (prefers-reduced-motion:reduce){.gallery-track{animation:none;flex-wrap:wrap;width:100%;max-width:1140px;margin:0 auto;justify-content:center;padding:0 22px}}
+
 
 .loc{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:stretch}
 .loc .map{border-radius:18px;overflow:hidden;border:1px solid var(--line2);min-height:340px}
@@ -189,6 +204,53 @@ section{position:relative}
 .cta-band p{font-size:1.1rem;font-weight:500;color:var(--muted);margin-bottom:26px}
 .cta-band .btn-wa{background:var(--grad);color:#fff;box-shadow:0 8px 28px rgba(224,122,47,.35)}
 .cta-band .btn-wa:hover{filter:brightness(1.06);transform:translateY(-2px)}
+
+
+/* Avaliações */
+/* Avaliações — nota */
+.aval-nota{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:2.2rem;text-align:center}
+.aval-top{display:flex;align-items:center;justify-content:center;gap:12px}
+.aval-num{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,3.2rem);line-height:1;color:var(--orange);font-weight:800;margin:0}
+.estrelas{display:flex;gap:3px;align-items:center}
+.estrelas svg{width:18px;height:18px;fill:var(--orange);flex:none}
+.aval-nota > p,.aval-sub{font-size:.95rem;color:var(--muted);margin:0;line-height:1.35}
+.av-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.av{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 22px;display:grid;grid-template-rows:auto 1fr auto;gap:14px;transition:.25s;box-shadow:0 2px 12px rgba(40,25,15,.04)}
+.av:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(40,25,15,.08)}
+.av blockquote{font-size:.97rem;line-height:1.7;color:var(--ink);font-style:normal}
+.av .quem2{border-top:1px solid var(--line);padding-top:14px}
+.av .ini{width:40px;height:40px;flex:none;border-radius:50%;display:grid;place-items:center;background:rgba(245,166,35,.12);color:var(--orange);font-weight:700;font-size:.95rem}
+.av .quem2 b{display:block;font-size:.95rem;color:var(--ink)}
+.av .quem2 span{display:block;font-size:.82rem;color:var(--muted);margin-top:2px}
+.aval-pe{text-align:center;margin-top:28px}
+
+/* Como marcar */
+.ag-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:2rem}
+.ag{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:32px 28px;display:grid;gap:14px;align-content:start;box-shadow:0 2px 12px rgba(40,25,15,.04);transition:.25s}
+.ag:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(40,25,15,.08)}
+.ag svg{width:36px;height:36px;stroke:var(--orange);fill:none;stroke-width:1.6}
+.ag svg[fill]{fill:var(--orange);stroke:none;width:40px;height:40px}
+.ag h3{font-size:1.25rem;font-weight:700;color:var(--ink);margin:0}
+.ag p{color:var(--muted);font-size:.98rem;line-height:1.7;margin:0}
+.ag .btn{justify-self:start;margin-top:6px}
+
+/* FAQ */
+.duv-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(1.6rem,4vw,3.4rem);align-items:start}
+.duv-lado p{color:var(--muted);margin:14px 0 22px;font-size:1.05rem;line-height:1.7;max-width:36ch}
+.duv details{border:1px solid var(--line);border-radius:14px;background:var(--card);margin-bottom:10px;overflow:hidden;transition:.2s}
+.duv details[open]{border-color:var(--line2);box-shadow:0 4px 16px rgba(40,25,15,.05)}
+.duv summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;font-size:1rem;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.duv summary::-webkit-details-marker{display:none}
+.duv summary .mais{width:28px;height:28px;border-radius:50%;background:rgba(245,166,35,.12);color:var(--orange);display:grid;place-items:center;font-size:1.1rem;font-weight:700;flex:none;transition:.2s}
+.duv details[open] summary .mais{background:var(--grad);color:#fff;transform:rotate(45deg)}
+.duv .r{padding:0 20px 18px;color:var(--muted);font-size:.96rem;line-height:1.72}
+
+@media(max-width:900px){
+.sec-head[style*="grid-template-columns"]{grid-template-columns:1fr !important}
+.av-grid{grid-template-columns:1fr}
+.ag-grid{grid-template-columns:1fr}
+.duv-grid{grid-template-columns:1fr}
+}
 
 footer{background:var(--bg3);border-top:1px solid var(--line);padding:56px 0 28px}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:36px}
@@ -214,9 +276,8 @@ footer{background:var(--bg3);border-top:1px solid var(--line);padding:56px 0 28p
 .grid{grid-template-columns:repeat(2,1fr)}
 .feature{grid-template-columns:1fr;gap:30px}
 .feature .media{order:-1}
-.promo{grid-template-columns:1fr}
-.promo .media{min-height:230px;aspect-ratio:16/10}
-.diff-grid{grid-template-columns:repeat(2,1fr)}
+.promo{grid-template-columns:1fr}.promo .media{min-height:220px;aspect-ratio:16/10;order:-1}.promo .body{padding:28px 22px}.promo .body .btn{width:auto;align-self:flex-start;justify-content:center}
+.diff-grid{grid-template-columns:1fr}
 .loc{grid-template-columns:1fr}
 .gallery{grid-template-columns:1fr}
 .foot-grid{grid-template-columns:1fr 1fr;gap:30px}
@@ -227,9 +288,10 @@ footer{background:var(--bg3);border-top:1px solid var(--line);padding:56px 0 28p
 .nav{height:76px}
 .mobile-nav{top:76px}
 }
+@media(max-width:700px){.diff-grid{grid-template-columns:1fr}.promo{grid-template-columns:1fr}.promo .media{min-height:200px;aspect-ratio:16/10;order:-1}.promo .body{padding:26px 20px}.promo h2{font-size:clamp(1.4rem,5vw,2rem)}.promo p{font-size:1rem}.promo .body .btn{width:auto;align-self:flex-start;justify-content:center}}
 @media(max-width:560px){
 .grid{grid-template-columns:1fr}
-.diff-grid{grid-template-columns:1fr 1fr}
+.diff-grid{grid-template-columns:1fr}
 .band{padding:62px 0}
 .promo .body{padding:30px 24px}
 .cta-band{padding:40px 22px}.cta-outer{padding:62px 0}
@@ -254,9 +316,10 @@ footer{background:var(--bg3);border-top:1px solid var(--line);padding:56px 0 28p
 <span class="logo-chip"><img src="logo-caju.png" alt="Espaço Caju" class="logo-img"></span>
 </a>
 <nav class="nav-links" aria-label="Main menu">
-<a href="#servicos" class="lnk">Services</a>
 <a href="#sobre" class="lnk">The Salon</a>
-<a href="#resultados" class="lnk">Results</a>
+<a href="#servicos" class="lnk">Services</a>
+<a href="#trabalho" class="lnk">Our Work</a>
+<a href="#agendar" class="lnk">Book</a>
 <a href="#contato" class="lnk">Contact</a>
 <a href="https://wa.me/5521966015065?text=Hi!%20I%20came%20from%20the%20Espa%C3%A7o%20Caju%20website%20and%20I%20want%20to%20book%20an%20appointment." class="btn btn-wa" target="_blank" rel="noopener">
 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.913zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
@@ -275,9 +338,10 @@ Agendar
 </header>
 
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile menu">
-<a href="#servicos" class="mlnk">Services</a>
 <a href="#sobre" class="mlnk">The Salon</a>
-<a href="#resultados" class="mlnk">Results</a>
+<a href="#servicos" class="mlnk">Services</a>
+<a href="#trabalho" class="mlnk">Our Work</a>
+<a href="#agendar" class="mlnk">Book</a>
 <a href="#contato" class="mlnk">Contact</a>
 <a href="https://wa.me/5521966015065?text=Hi!%20I%20came%20from%20the%20Espa%C3%A7o%20Caju%20website%20and%20I%20want%20to%20book%20an%20appointment." class="btn btn-wa m-wa" target="_blank" rel="noopener">
 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.913zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
@@ -306,81 +370,12 @@ Av. Afonso Arinos de Melo Franco, 222, Bloco 2, Loja 102 (Barra Prime) — Barra
 I want this experience
 </a>
 <a href="https://www.avec.app/espacocaju/?utm_source=share&utm_campaign=65164&utm_medium=usuario-undefined" class="btn btn-wa" target="_blank" rel="noopener">Book Online</a>
-<a href="#servicos" class="btn btn-ghost">See services</a>
-</div>
-<div class="hero-trust">
-<div class="trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.8 2.3 7.2L12 16.8 5.7 21.2 8 14 2 9.2h7.6z"/></svg> 4.7 rating on Google</div>
-<div class="trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> +500 works on Instagram</div>
-<div class="trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Barra da Tijuca</div>
 </div>
 </div>
 </div>
 </section>
 
-<div class="strip">
-<div class="wrap">
-<div class="row">
-<div class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 7.2H22l-6 4.8 2.3 7.2L12 16.8 5.7 21.2 8 14 2 9.2h7.6z"/></svg> 4.7 · 55 Google reviews</div>
-<div class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @espacocaju.beleza · +500 posts</div>
-<div class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-6 9 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 21V12h6v9"/></svg> Hair · Nails · Lashes · Brows · Waxing</div>
-<div class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Tue–Fri 10am–7pm · Sat 9am–6pm</div>
-</div>
-</div>
-</div>
-
-<section class="band band-white" id="servicos">
-<div class="wrap">
-<div class="sec-head center reveal">
-<span class="eyebrow">Services</span>
-<h2>Everything you need in one place</h2>
-<p>Hair, nails, waxing, lashes and brows — specialized professionals in every detail. Book online or via WhatsApp.</p>
-</div>
-<div class="grid">
-<div class="svc reveal">
-<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3c-1.5 2.5-2 5-2 7.5 0 2.5 1 4.5 2 6 .8-1.2 2-3.2 2-6 0-2.5-.5-5-2-7.5z"/><path d="M8 8c-1.5 1.5-2.5 3.5-2.5 5.5S7 17 8.5 18.5"/><path d="M16 8c1.5 1.5 2.5 3.5 2.5 5.5S17 17 15.5 18.5"/><path d="M12 16v5"/></svg></div>
-<h3>Hair</h3>
-<p>Women’s, men’s and children’s cuts, fringe cut, blow-dry (S and XS) and blow-dry on hair with extensions.</p>
-</div>
-<div class="svc reveal">
-<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11V7a2 2 0 014 0v4"/><path d="M8 11h8v8a2 2 0 01-2 2h-4a2 2 0 01-2-2v-8z"/><path d="M12 2v2"/><circle cx="18" cy="6" r="1.5"/></svg></div>
-<h3>Manicure &amp; Pedicure</h3>
-<p>Regular and gel polish, French manicure, foot spa, foot plastic, scrub and realistic press-on nails.</p>
-</div>
-<div class="svc reveal">
-<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 3v4a2 2 0 002 2h0a2 2 0 002-2V3"/><path d="M9 9h6v10a2 2 0 01-2 2h-2a2 2 0 01-2-2V9z"/><path d="M12 14v3"/><path d="M6 7l1.5 1.5M18 7l-1.5 1.5"/></svg></div>
-<h3>Nail Extensions</h3>
-<p>Application and maintenance in fiberglass, porcelain and acrylic gel, strengthening (gel bath) and removal of artificial nails.</p>
-</div>
-<div class="svc reveal">
-<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 8l1.5 1.5M7 5.5l1 1.5M17 5.5l-1 1.5M20 8l-1.5 1.5"/></svg></div>
-<h3>Lashes</h3>
-<p>Lash lifting and lash tint for a more open, longer and defined look.</p>
-</div>
-<div class="svc reveal">
-<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 14c2-3 5-5 8-5s6 2 8 5"/><path d="M4 10c2 1.5 5 2.5 8 2.5s6-1 8-2.5"/><path d="M8 7c1 .8 2.5 1.2 4 1.2S15 7.8 16 7"/></svg></div>
-<h3>Brows</h3>
-<p>Brow design, brow lamination, tint, henna and brow coloring.</p>
-</div>
-<div class="svc reveal">
-<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v4M8 4l2 2M16 4l-2 2"/><path d="M7 10c0 3 2 6 5 8 3-2 5-5 5-8a5 5 0 00-10 0z"/></svg></div>
-<h3>Waxing</h3>
-<p>Upper lip, women’s face with thread, temples and other areas — gentle techniques with skin care.</p>
-</div>
-</div>
-<div style="text-align:center;margin-top:36px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px" class="reveal">
-<a href="https://www.avec.app/espacocaju/?utm_source=share&utm_campaign=65164&utm_medium=usuario-undefined" class="btn btn-wa" target="_blank" rel="noopener">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
-Book Online
-</a>
-<a href="https://wa.me/5521966015065?text=Hi!%20I%20came%20from%20the%20Espa%C3%A7o%20Caju%20website%20and%20I%20want%20to%20book%20an%20appointment." class="btn btn-wa" target="_blank" rel="noopener">
-<svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.913zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-WhatsApp
-</a>
-</div>
-</div>
-</section>
-
-<section class="band band-beige" id="sobre">
+<section class="band band-white" id="sobre">
 <div class="wrap feature">
 <div class="reveal">
 <span class="eyebrow"><span class="grad-text">Espaço Caju</span></span>
@@ -404,6 +399,37 @@ Ask questions
 </div>
 </section>
 
+<section class="band band-beige" id="diferenciais">
+<div class="wrap">
+<div class="sec-head center reveal">
+<span class="eyebrow">Why <span class="grad-text">Espaço Caju</span></span>
+<h2>A salon made for you</h2>
+</div>
+<div class="diff-grid">
+<div class="diff reveal">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+<div class="n">Welcoming Atmosphere</div>
+<p>A light space full of good energy so you can take care of yourself with pleasure.</p>
+</div>
+<div class="diff reveal">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+<div class="n">Specialized Professionals</div>
+<p>A team skilled in hair, nails, lashes, brows and waxing.</p>
+</div>
+<div class="diff reveal">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 7.2H22l-6 4.8 2.3 7.2L12 16.8 5.7 21.2 8 14 2 9.2h7.6z"/></svg></div>
+<div class="n">Premium Products</div>
+<p>Quality products that care for the health of your hair and skin.</p>
+</div>
+<div class="diff reveal">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/><path d="M12 9v.01"/></svg></div>
+<div class="n">Everything in one place</div>
+<p>Hair, nails, lashes, brows and waxing at Barra Prime.</p>
+</div>
+</div>
+</div>
+</section>
+
 <section class="band band-white">
 <div class="wrap">
 <div class="promo reveal">
@@ -414,70 +440,240 @@ Ask questions
 <p>Full preparation for your day: <b>cut</b>, <b>color</b>, <b>treatments</b>, <b>nails</b> and <b>makeup</b> in the same place, with appointment and a team taking care of you.</p>
 <a href="https://wa.me/5521966015065?text=Hi!%20I%20want%20to%20book%20a%20transformation%20at%20Espa%C3%A7o%20Caju." class="btn btn-wa" target="_blank" rel="noopener">
 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.913zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-Book my transformation
+Book
 </a>
 </div>
 </div>
 </div>
 </section>
 
-<section class="band band-beige">
+<section class="band band-beige" id="servicos">
 <div class="wrap">
 <div class="sec-head center reveal">
-<span class="eyebrow">Why <span class="grad-text">Espaço Caju</span></span>
-<h2>A salon made for you</h2>
+<span class="eyebrow">Services</span>
+<h2>Everything you need in one place</h2>
+<p>Hair, nails, waxing, lashes and brows — specialized professionals in every detail. Book online or via WhatsApp.</p>
 </div>
-<div class="diff-grid">
-<div class="diff reveal">
-<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-6 9 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 21V12h6v9"/></svg></div>
-<div class="n">Everything in one place</div>
-<p>Hair, nails, lashes, brows and waxing at Barra Prime, Barra da Tijuca.</p>
+<div class="grid">
+<div class="svc reveal">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"/></svg></div>
+<h3>Hair</h3>
+<p>Women’s, men’s and children’s cuts, fringe cut, blow-dry (S and XS) and blow-dry on hair with extensions.</p>
 </div>
-<div class="diff reveal">
-<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-<div class="n">Fun atmosphere</div>
-<p>Beauty with lightness — a welcoming space full of good energy.</p>
+<div class="svc reveal">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 00-4 0"/><path d="M14 10V4a2 2 0 00-4 0v2"/><path d="M10 10.5V6a2 2 0 00-4 0v8"/><path d="M18 8a2 2 0 114 0v6a8 8 0 01-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 012.83-2.82L7 15"/></svg></div>
+<h3>Manicure &amp; Pedicure</h3>
+<p>Regular and gel polish, French manicure, foot spa, foot plastic, scrub and realistic press-on nails.</p>
 </div>
-<div class="diff reveal">
-<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 7.2H22l-6 4.8 2.3 7.2L12 16.8 5.7 21.2 8 14 2 9.2h7.6z"/></svg></div>
-<div class="n">4.7 rating on Google</div>
-<p>55 reviews from clients who trust our work.</p>
+<div class="svc reveal">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1.1 0 2 .7 2 1.8V12c0 1.5-1 2.5-2 3.5S10 18 10 20v1"/><path d="M10 8h4"/><path d="M11 22h2"/></svg></div>
+<h3>Nail Extensions</h3>
+<p>Application and maintenance in fiberglass, porcelain and acrylic gel, strengthening (gel bath) and removal of artificial nails.</p>
 </div>
-<div class="diff reveal">
-<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
-<div class="n">+500 posts</div>
-<p>Real work published on our Instagram @espacocaju.beleza.</p>
+<div class="svc reveal">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 8l1.5 1.5M7 5.5l1 1.5M17 5.5l-1 1.5M20 8l-1.5 1.5"/></svg></div>
+<h3>Lashes</h3>
+<p>Lash lifting and lash tint for a more open, longer and defined look.</p>
 </div>
+<div class="svc reveal">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13s3.5-5 10-5 10 5 10 5-3.5 5-10 5S2 13 2 13z"/><circle cx="12" cy="13" r="2.5"/><path d="M5 7c2 .8 4.5 1.3 7 1.3S17 7.8 19 7"/></svg></div>
+<h3>Brows</h3>
+<p>Brow design, brow lamination, tint, henna and brow coloring.</p>
+</div>
+<div class="svc reveal">
+<div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8"/><path d="M12 8c-2-3-1-5.5 0-6 1 .5 2 3 0 6z"/><path d="M9 10c-1.5-1.5-2-3.5-1.5-4.5"/><path d="M15 10c1.5-1.5 2-3.5 1.5-4.5"/><path d="M8 14c-1.2-.8-2.5-1-3-1"/><path d="M16 14c1.2-.8 2.5-1 3-1"/></svg></div>
+<h3>Waxing</h3>
+<p>Upper lip, women’s face with thread, temples and other areas — gentle techniques with skin care.</p>
+</div>
+</div>
+<div style="text-align:center;margin-top:36px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px" class="reveal">
+<a href="https://www.avec.app/espacocaju/?utm_source=share&utm_campaign=65164&utm_medium=usuario-undefined" class="btn btn-wa" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+Book Online
+</a>
+<a href="https://wa.me/5521966015065?text=Hi!%20I%20came%20from%20the%20Espa%C3%A7o%20Caju%20website%20and%20I%20want%20to%20book%20an%20appointment." class="btn btn-wa" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.913zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+WhatsApp
+</a>
 </div>
 </div>
 </section>
 
-<section class="band band-white" id="resultados">
+<section class="band band-white" id="trabalho">
 <div class="wrap">
 <div class="sec-head center reveal">
-<span class="eyebrow">Results</span>
-<h2>Beauty made by hand, every day</h2>
-<p>A sample of what comes out of <span class="grad-text">Espaço Caju</span> chairs — there is much more on our Instagram.</p>
-</div>
-<div class="gallery reveal">
-<div class="g"><div class="placeholder">Hair<br><small>(add cabelo.jpg)</small></div><span class="lbl">Hair</span></div>
-<div class="gallery-col">
-<div class="g"><div class="placeholder">Cuts<br><small>(add cortes.jpg)</small></div><span class="lbl">Cuts</span></div>
-<div class="g"><div class="placeholder">Unhas<br><small>(add unhas.jpg)</small></div><span class="lbl">Manicure &amp; Pedicure</span></div>
+<span class="eyebrow">Gallery</span>
+<h2>Our Work</h2>
+<p>A sample of what comes out of <span class="grad-text">Espaço Caju</span> — much more on our Instagram.</p>
 </div>
 </div>
-<div class="gallery reveal" style="margin-top:18px">
-<div class="g"><div class="placeholder">Nosso espaço<br><small>(add fachada.jpg)</small></div><span class="lbl">Our space — Barra</span></div>
-<div class="gallery-col">
-<div class="g"><div class="placeholder">Tratamentos<br><small>(add cilios.jpg)</small></div><span class="lbl">Lashes &amp; Brows</span></div>
-<div class="g"><div class="placeholder">Make<br><small>(add make.jpg)</small></div><span class="lbl">Waxing</span></div>
+<div class="gallery-marquee reveal">
+<div class="gallery-track">
+<div class="gallery-item">
+<div class="ph">Foto 1</div>
+<img src="imagem1.png" alt="Trabalho Espaço Caju 1" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 2</div>
+<img src="imagem2.png" alt="Trabalho Espaço Caju 2" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 3</div>
+<img src="imagem3.png" alt="Trabalho Espaço Caju 3" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 4</div>
+<img src="imagem4.png" alt="Trabalho Espaço Caju 4" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 5</div>
+<img src="imagem5.png" alt="Trabalho Espaço Caju 5" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 6</div>
+<img src="imagem6.png" alt="Trabalho Espaço Caju 6" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 7</div>
+<img src="imagem7.png" alt="Trabalho Espaço Caju 7" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 8</div>
+<img src="imagem8.png" alt="Trabalho Espaço Caju 8" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 9</div>
+<img src="imagem9.png" alt="Trabalho Espaço Caju 9" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 10</div>
+<img src="imagem10.png" alt="Trabalho Espaço Caju 10" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 11</div>
+<img src="imagem11.png" alt="Trabalho Espaço Caju 11" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 12</div>
+<img src="imagem12.png" alt="Trabalho Espaço Caju 12" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 1</div>
+<img src="imagem1.png" alt="Trabalho Espaço Caju 1" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 2</div>
+<img src="imagem2.png" alt="Trabalho Espaço Caju 2" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 3</div>
+<img src="imagem3.png" alt="Trabalho Espaço Caju 3" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 4</div>
+<img src="imagem4.png" alt="Trabalho Espaço Caju 4" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 5</div>
+<img src="imagem5.png" alt="Trabalho Espaço Caju 5" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 6</div>
+<img src="imagem6.png" alt="Trabalho Espaço Caju 6" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 7</div>
+<img src="imagem7.png" alt="Trabalho Espaço Caju 7" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 8</div>
+<img src="imagem8.png" alt="Trabalho Espaço Caju 8" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 9</div>
+<img src="imagem9.png" alt="Trabalho Espaço Caju 9" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 10</div>
+<img src="imagem10.png" alt="Trabalho Espaço Caju 10" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 11</div>
+<img src="imagem11.png" alt="Trabalho Espaço Caju 11" loading="lazy" onerror="this.style.display='none'">
+</div>
+<div class="gallery-item">
+<div class="ph">Foto 12</div>
+<img src="imagem12.png" alt="Trabalho Espaço Caju 12" loading="lazy" onerror="this.style.display='none'">
 </div>
 </div>
-<div style="text-align:center;margin-top:30px" class="reveal">
+</div>
+<div class="wrap" style="text-align:center;margin-top:30px">
 <a class="btn btn-ghost" href="https://www.instagram.com/espacocaju.beleza/" target="_blank" rel="noopener">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
 See more on Instagram
 </a>
+</div>
+</section>
+
+<section class="band band-beige" id="avaliacoes">
+<div class="wrap">
+<div class="sec-head center reveal">
+<span class="eyebrow">Reviews</span>
+<h2>What clients say</h2>
+</div>
+
+<div class="aval-nota reveal">
+<div class="aval-top">
+<div class="aval-num">4.7</div>
+<div class="estrelas" role="img" aria-label="Five stars"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg></div>
+</div>
+<p class="aval-sub">From 55 Google reviews</p>
+</div>
+<div class="av-grid">
+<article class="av reveal">
+<div class="estrelas" role="img" aria-label="Five stars"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg></div>
+<blockquote>“Welcoming atmosphere and attentive professionals. I left with beautiful hair and perfect nails. Highly recommend!”</blockquote>
+<div class="quem2"><div><b>Marina S.</b><span>on Google</span></div></div>
+</article>
+<article class="av reveal">
+<div class="estrelas" role="img" aria-label="Five stars"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg></div>
+<blockquote>“I had a brow design and lash lift and loved the result. Appointment-based and always on time.”</blockquote>
+<div class="quem2"><div><b>Camila R.</b><span>on Google</span></div></div>
+</article>
+<article class="av reveal">
+<div class="estrelas" role="img" aria-label="Five stars"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.47 5.28 5.53.72-4.06 3.9 1.05 5.66L10 14.5l-5 2.66 1.05-5.66L2 7.6l5.53-.72z"/></svg></div>
+<blockquote>“Full salon in Barra — hair, nails and waxing in one place. Light atmosphere full of good energy.”</blockquote>
+<div class="quem2"><div><b>Ana Paula T.</b><span>on Google</span></div></div>
+</article>
+</div>
+<div class="aval-pe reveal">
+<a class="btn btn-ghost" href="https://www.google.com/maps/place/Espa%C3%A7o+Caju+-+Sal%C3%A3o+de+Beleza+Barra+Prime/@-23.004488759809124,-43.32842965091136,17z/data=!3m1!4b1!4m6!3m5!1s0x9bd14937b2796d:0xf98e193f895d9be0!8m2!3d-23.004488759809124!4d-43.32842965091136" target="_blank" rel="noopener">See all on Google</a>
+</div>
+</div>
+</section>
+
+<section class="band band-white" id="agendar">
+<div class="wrap">
+<div class="sec-head reveal" style="max-width:none;display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.2rem,4vw,3rem);align-items:end;margin-bottom:0">
+<div>
+<span class="eyebrow">Booking</span>
+<h2>How to book</h2>
+</div>
+<p style="color:var(--muted);font-size:1.05rem;line-height:1.7;margin:0">Appointments are required. You can choose online or message us on WhatsApp.</p>
+</div>
+<div class="ag-grid">
+<article class="ag reveal">
+<svg viewBox="0 0 32 32" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="22" height="20" rx="3"/><path d="M5 13h22M11 4v5M21 4v5"/><path d="M12 19l3 3 5-5"/></svg>
+<h3>Online booking</h3>
+<p>Shows available times right away. You choose the service, the day and confirm without waiting for a reply.</p>
+<a class="btn btn-wa" href="https://www.avec.app/espacocaju/?utm_source=share&utm_campaign=65164&utm_medium=usuario-undefined" target="_blank" rel="noopener">See available times</a>
+</article>
+<article class="ag reveal">
+<svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 3C9.383 3 4 8.383 4 15.004c0 2.385.72 4.6 1.95 6.44L4.5 28.5l7.25-1.42A11.95 11.95 0 0016.004 27C22.625 27 28 21.617 28 15.004 28 8.383 22.625 3 16.004 3zm0 21.75a9.68 9.68 0 01-4.95-1.36l-.35-.21-3.54.93.95-3.45-.23-.36a9.7 9.7 0 01-1.5-5.25c0-5.37 4.37-9.74 9.74-9.74s9.74 4.37 9.74 9.74-4.37 9.74-9.74 9.74zm5.34-7.28c-.29-.15-1.73-.85-2-.95-.27-.1-.46-.15-.66.15-.2.29-.76.95-.93 1.14-.17.2-.34.22-.63.07-.29-.15-1.23-.45-2.34-1.44-.86-.77-1.45-1.72-1.62-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.52-.08-.15-.66-1.58-.9-2.16-.24-.57-.48-.49-.66-.5h-.56c-.2 0-.52.07-.79.37s-1.04 1.01-1.04 2.47 1.06 2.86 1.21 3.06c.15.2 2.09 3.19 5.06 4.47.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.75-.72 2-1.4.25-.69.25-1.28.17-1.4-.07-.12-.27-.2-.56-.35z"/></svg>
+<h3>WhatsApp</h3>
+<p>To ask a question first, send a photo of what you want, or get a service recommendation.</p>
+<a class="btn btn-wa" href="https://wa.me/5521966015065?text=Hi!%20I%20came%20from%20the%20Espa%C3%A7o%20Caju%20website%20and%20I%20want%20to%20book%20an%20appointment." target="_blank" rel="noopener">Message on WhatsApp</a>
+</article>
 </div>
 </div>
 </section>
@@ -495,7 +691,7 @@ See more on Instagram
 <div class="info-list reveal">
 <div class="info-row">
 <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-<div class="t"><b>Address</b><span>Av. Afonso Arinos de Melo Franco, 222, Bloco 2, Loja 102 (Barra Prime) — Barra da Tijuca, Rio de Janeiro/RJ, CEP 22631-455<br><a href="https://www.google.com/maps?cid=0xf98e193f895d9be0" target="_blank" rel="noopener">View on Google Maps →</a></span></div>
+<div class="t"><b>Address</b><span>Av. Afonso Arinos de Melo Franco, 222, Bloco 2, Loja 102 (Barra Prime) — Barra da Tijuca, Rio de Janeiro/RJ, CEP 22631-455<br><a href="https://www.google.com/maps/place/Espa%C3%A7o+Caju+-+Sal%C3%A3o+de+Beleza+Barra+Prime/@-23.004488759809124,-43.32842965091136,17z/data=!3m1!4b1!4m6!3m5!1s0x9bd14937b2796d:0xf98e193f895d9be0!8m2!3d-23.004488759809124!4d-43.32842965091136" target="_blank" rel="noopener">View on Google Maps →</a></span></div>
 </div>
 <div class="info-row">
 <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg></div>
@@ -518,19 +714,37 @@ Agendar pelo WhatsApp
 </div>
 </section>
 
-<section class="cta-outer">
+<section class="band band-white" id="faq">
 <div class="wrap">
-<div class="cta-band reveal">
-<h2>Ready for your beauty moment?</h2>
-<p>Book online or via WhatsApp and let our team take care of the rest.</p>
-<a href="https://www.avec.app/espacocaju/?utm_source=share&utm_campaign=65164&utm_medium=usuario-undefined" class="btn btn-wa" target="_blank" rel="noopener" style="margin:6px">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
-Book Online
-</a>
-<a href="https://wa.me/5521966015065?text=Hi!%20I%20came%20from%20the%20Espa%C3%A7o%20Caju%20website%20and%20I%20want%20to%20book%20an%20appointment." class="btn btn-wa" target="_blank" rel="noopener" style="margin:6px">
-<svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.913zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-WhatsApp
-</a>
+<div class="duv-grid">
+<div class="duv-lado reveal">
+<span class="eyebrow">FAQ</span>
+<h2>Frequently asked questions</h2>
+<p>If yours isn’t here, message us on WhatsApp and we’ll reply.</p>
+<a class="btn btn-wa" href="https://wa.me/5521966015065?text=Hi!%20I%20came%20from%20the%20Espa%C3%A7o%20Caju%20website%20and%20I%20want%20to%20book%20an%20appointment." target="_blank" rel="noopener">Talk to the salon</a>
+</div>
+<div class="duv reveal">
+<details>
+<summary>Do I need an appointment?<span class="mais">+</span></summary>
+<p class="r">Yes, service is by appointment. You can use the online booking (AVEC), which shows available times right away, or message us on WhatsApp.</p>
+</details>
+<details>
+<summary>Can I do hair and nails on the same day?<span class="mais">+</span></summary>
+<p class="r">Yes. That’s the advantage of having everything under one roof — hair, nails, lashes, brows and waxing. Let us know when booking so we can schedule the services in sequence.</p>
+</details>
+<details>
+<summary>How long does it take?<span class="mais">+</span></summary>
+<p class="r">It depends on the service. Cuts and polish are usually quicker; extensions, color and treatments take longer. Tell us what you want when booking so we reserve the right amount of time.</p>
+</details>
+<details>
+<summary>Where is the salon?<span class="mais">+</span></summary>
+<p class="r">At Barra Prime: Av. Afonso Arinos de Melo Franco, 222, Bloco 2, Loja 102 — Barra da Tijuca, Rio de Janeiro/RJ, CEP 22631-455.</p>
+</details>
+<details>
+<summary>What are the opening hours?<span class="mais">+</span></summary>
+<p class="r">Tuesday to Friday, 10am–7pm. Saturday, 9am–6pm. Closed Monday and Sunday.</p>
+</details>
+</div>
 </div>
 </div>
 </section>
@@ -559,7 +773,7 @@ WhatsApp
 <p>Tue–Fri 10am–7pm · Sat 9am–6pm</p>
 <div class="social">
 <a href="https://www.instagram.com/espacocaju.beleza/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
-<a href="https://www.google.com/maps?cid=0xf98e193f895d9be0" target="_blank" rel="noopener" aria-label="Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></a>
+<a href="https://www.google.com/maps/place/Espa%C3%A7o+Caju+-+Sal%C3%A3o+de+Beleza+Barra+Prime/@-23.004488759809124,-43.32842965091136,17z/data=!3m1!4b1!4m6!3m5!1s0x9bd14937b2796d:0xf98e193f895d9be0!8m2!3d-23.004488759809124!4d-43.32842965091136" target="_blank" rel="noopener" aria-label="Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></a>
 <a href="https://wa.me/5521966015065" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.913zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></a>
 </div>
 </div>
